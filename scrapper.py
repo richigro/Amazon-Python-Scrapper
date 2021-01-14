@@ -1,6 +1,11 @@
+# allow you to make hhtp requests and get back data
 import requests
 # BeatifulSoup helps us parse the response from our GET request
 from bs4 import BeautifulSoup
+# a simple mail protocol 
+import smtplib
+# to make function run for an extended period of time
+import time
 
 # Declaring a variable that is an url to the product page of the item you want
 product_url = "https://www.amazon.com/Logitech-Dual-motor-Feedback-Responsive-PlayStation/dp/B00Z0UWWYC/ref=sr_1_1?crid=QWI8J1FZT74C&dchild=1&keywords=ps4+steering+wheel&qid=1610597104&sprefix=ps4+steering+whe%2Caps%2C215&sr=8-1"
@@ -35,10 +40,52 @@ def check_product_price():
 
   # when the product's converted_product_price goes under the user defined max_product_price
   # alert the user
-  if converted_product_price < product_price:
+  if converted_product_price < max_product_price:
   # send an email to the user
-    send_email()
+    send_email(converted_product_price)
+  else:
+    print "Price hasn't gone down from the max price of ${} USD".format(max_product_price)
 
 
 # testing function
-check_product_price()
+# check_product_price()
+
+def send_email(newPrice):
+  # set up a connection between computer and gmail service
+  server = smtplib.SMTP('smtp.gmail.com', 587)
+  # this identifies itself to server 
+  server.ehlo()
+  # encrypts connection
+  server.starttls()
+  # again identifies itself
+  server.ehlo()
+
+  # login to server
+  server.login('richigro@gmail.com', 'mnkbrsfscwphbivd')
+
+  # email subject line
+  subject = "Price fell Down to ${} !".format(newPrice)
+  # using older format of interpolating string
+  # because running python 2.7.17
+  body = "Check the Amazon link: {}".format(product_url)
+
+  msg = 'Subject: {} \n\n {}'.format(subject, body)
+  # send email from and to and message 
+  server.sendmail(
+    'richigro@gmail.com',
+    'richigro@gmail.com',
+    msg
+  )
+
+  print 'Email has been sent out!'
+  # close the connection to the open server
+  server.quit()
+
+# Be careful! this will always run
+# until it is stopped from terminal with 'crtl + c'
+while(True):
+  check_product_price()
+  # the period two wait in between function calls
+  # currently set to make a function call every 60 seconds
+  
+  time.sleep(60)
