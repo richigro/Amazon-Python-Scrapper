@@ -87,5 +87,4 @@ while(True):
   check_product_price()
   # the period two wait in between function calls
   # currently set to make a function call every 60 seconds
-  
   time.sleep(60)
