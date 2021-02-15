@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import smtplib
 # to make function run for an extended period of time
 import time
+#stuff todo
 
 # Declaring a variable that is an url to the product page of the item you want
 product_url = "https://www.amazon.com/Logitech-Dual-motor-Feedback-Responsive-PlayStation/dp/B00Z0UWWYC/ref=sr_1_1?crid=QWI8J1FZT74C&dchild=1&keywords=ps4+steering+wheel&qid=1610597104&sprefix=ps4+steering+whe%2Caps%2C215&sr=8-1"
