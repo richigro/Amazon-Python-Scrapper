@@ -1,3 +1,4 @@
+#modify to work for other web scrapping tools easy to modify 
 # allow you to make hhtp requests and get back data
 import requests
 # BeatifulSoup helps us parse the response from our GET request
